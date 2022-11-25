@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+ <script type="text/javascript" th:src="@{http://code.jquery.com/jquery-1.4.1.min.js}"></script>
+<script type="text/javascript">
+function calculate(){
+	var num1=$("#num1").val();
+	var operator=$("#operation").val();
+	var num2=$("#num2").val();
+	$.ajax({
+		url:"calculate",
+		datatype:"json",
+		type:"post",
+		contentType:"application/json",
+		data:JSON.stringify({num1:num1,operator:operator,num2:num2}),
+		success:function(data){
+			document.getElementById("result").value=data;
+			alert(data);
+		},error:function(){
+			alert("计算失败");
+		}
+	});
+}
+</script>
+</head>
+<body>
+	<h2>四则运算器</h2>
+	<form action ="">
+   
+
+		 <table border="5" cellpadding="7">
+		 <tr>
+		 	<td colspan="5" align="left"> 
+		 		<div style="margin:0;color: rgb(0, 0, 255);border: 1px solid #ccc;">
+        			<marquee width=100% direction="right" scrollamount="3" 
+            			οnmοuseοver="this.stop()" οnmοuseοut="this.start()">软工20-2  梅跃宗制作
+        			</marquee>
+    			</div>
+    		</td>
+    	</tr>  
+		 <tr><th colspan="5">简易四则运算器</th></tr>
+         <tr>
+            <td><input type="text" id="num1" th:placeholder="请输入第一个数"/></td>
+            <td>
+                <select id="operation">
+                    <option value="+" id="operator">+</option>
+                    <option value="-" id="operator">-</option>
+                    <option value="*" id="operator">*</option>
+                    <option value="/" id="operator">/</option>
+                </select>
+            </td>
+            <td><input type="text" id="num2" th:placeholder="请输入第二个数"/></td>
+            <td><button type="button"onclick="calculate()">=</button></td>
+            <td><input type="text" id="result" th:placeholder="结果"/>
+            </td>
+        </tr>
+         <tr ><td colspan="5" align="left">注意：   整数和小数位数最大为10位！</td></tr>
+    	</table>
+	</form>
+</body>
+</html>
